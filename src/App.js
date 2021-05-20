@@ -2,9 +2,6 @@ import React, {useEffect,useState} from 'react';
 import Recipe from './recipe'
 import './App.css';
 
-<meta property="og.site_name" content="Let's Eat"/>;
-<meta property="og.description" content="Get Recipies to you favorite foods"/>;
-<meta property="og.title" content="Come and Let's Eat"/>;
 
 function App() {
   const APP_ID = 'dccd8b32';
@@ -36,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <div className="App_name">
-        <h1>Welcome to Let's Eat</h1>
+        <h1>Welcome to Let's Cook Now</h1>
       </div>
       <form onSubmit={getSearch} action="" className="search-form">
         <input type="text" className="search-bar" value={search} onChange={updateSearch}/>
