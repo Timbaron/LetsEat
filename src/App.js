@@ -1,19 +1,55 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
+import Recipe from './recipe'
 import './App.css';
+
+<meta property="og.site_name" content="Let's Eat"/>;
+<meta property="og.description" content="Get Recipies to you favorite foods"/>;
+<meta property="og.title" content="Come and Let's Eat"/>;
 
 function App() {
   const APP_ID = 'dccd8b32';
   const APP_KEY = "b0ccd1347d986107178a1513b98783c3";
 
-  const ExampleReq = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
+  const [recipies, setRecipies] = useState([]);
+  const [search,setSearch] = useState('');
+  const [query,setQuery] = useState('');
+
+  useEffect( () => {
+    getRecipies();
+  }, [query])
+
+  const getRecipies = async () => {
+    const reaponse = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+    const data = await reaponse.json();
+    setRecipies(data.hits);
+  }
+
+  const updateSearch = e => {
+    setSearch(e.target.value);
+  }
+
+  const getSearch = e => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch('');
+  }
   return (
     <div className="App">
-      <form action="" className="search-form">
-        <input type="text" className="search-bar"/>
+      <div className="App_name">
+        <h1>Welcome to Let's Eat</h1>
+      </div>
+      <form onSubmit={getSearch} action="" className="search-form">
+        <input type="text" className="search-bar" value={search} onChange={updateSearch}/>
         <button type="submit" className="search-button">
           Search
         </button>
       </form>
+    <div className="recipes">
+
+    {recipies.map(recipe => (
+        <Recipe title={recipe.recipe.label} calories={recipe.recipe.calories} image={recipe.recipe.image} ingredients={recipe.recipe.ingredients}/>
+      ))}
+    </div>
     </div>
   );
 }
