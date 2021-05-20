@@ -36,7 +36,7 @@ function App() {
         <h1>Welcome to Let's Cook Now</h1>
       </div>
       <form onSubmit={getSearch} action="" className="search-form">
-        <input type="text" className="search-bar" value={search} onChange={updateSearch}/>
+        <input type="text" className="search-bar" value={search} onChange={updateSearch} placeholder="Enter name of food"/>
         <button type="submit" className="search-button">
           Search
         </button>
